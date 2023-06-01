@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Constructor</title>
+</head>
+<body>
+    <pre>
+        <code>
+            function Book(title, author, pages, read) {
+                this.title = title
+                this.author = author
+                this.pages = pages
+                this.read = read
+
+                this.hasRead = function() {
+                      if(read === true) {
+                        return readInfo = 'has been read'
+                    } else {
+                        return readInfo = 'has not been read'
+                    }
+                }
+
+                this.seeInfo = function() {
+                    this.hasRead()
+                    console.log(`${title} was written by ${author}, contains ${pages} pages and ${readInfo}.`)
+                }
+            }
+
+            const theHobbit = new Book('The Hobbit', 'Token', 420, false)
+            theHobbit.seeInfo()
+        </code>
+    </pre>
+    <br>
+    <p> This is the beginner's way of instantiating an object. In this example the hasRead and seeInfo functions are packaged inside each new Book object. When the library reaches thousands of Books, each one having its own set of functions wastes alot of extra memory.</p>
+    <br>
+    <pre>
+        <code>
+            function Book(title, author, pages, read) {
+                this.title = title
+                this.author = author
+                this.pages = pages
+                this.read = read
+            }
+
+            Book.prototype.hasRead = function() {
+                if(this.read === true) {
+                    return readInfo = 'has been read'
+                } else {
+                    return readInfo = 'has not been read'
+                }
+            }
+
+            Book.prototype.seeInfo = function() {
+                this.hasRead()
+                console.log(`${this.title} was written by ${this.author}, contains ${this.pages} pages and ${this.readInfo}.`)
+            }
+
+            const theHobbit = new Book('The Hobbit', 'Token', 420, false)
+            theHobbit.seeInfo()
+        </code>
+    </pre>
+    <br>
+    <p> This way of instantiating an object adds functions to the prototype outside of the Book creation step so that the functions will only be accessed when needed. This saves on memory, but requires using the 'this' keyword when referencing variables within each function.</p>
+</body>
+</html>
